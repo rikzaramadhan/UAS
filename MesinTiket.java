@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class MesinTiketFrame {
     double harga, total, diskon, bayar, kembalian;
     int pilih, jumlah;
+    String nama, tujuan;
     
     double hitungtotal (int jml ){
        jumlah = jml;
@@ -34,8 +35,18 @@ public class MesinTiketFrame {
         return total;
     }
 
-    void viewNama (){
-        System.out.print("Masukan Nama :");
+    public String Nama (String nm){
+        nama = nm;
+        Scanner nama = new Scanner(System.in);
+        nm = nama.nextLine();
+        return nm;
+    }
+    
+    public String Tujuan (String tjn){
+        nama = tjn;
+        Scanner tujuan = new Scanner(System.in);
+        tjn = tujuan.nextLine();
+        return tjn;
     }
     
     void viewTujuan (){
@@ -83,8 +94,8 @@ public class MesinTiketFrame {
         System.out.println("    B. Amerika : 1500-200 X 6%");
         System.out.println("    C. Bandung : 600-500 X 8%");
         System.out.println("--------------------------------------------------------------------------");
-        System.out.println("Masukan nama : ");
-        System.out.println("Kota tujuan : ");
+        System.out.println("Masukan nama : " + nama);
+        System.out.println("Kota tujuan : " + tujuan);
         System.out.print("Menggunakan Transportasi :");
         
         
