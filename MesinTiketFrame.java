@@ -1,84 +1,107 @@
 package view;
 
-import controller.MesinTiketService;
-import model.menu;
+import java.util.Scanner;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-public class MesinTiketFrame extends JFrame implements MesinTiketService {
-
-    private JLabel jlNama = new JLabel("Masukan Nama Anda");
-    private JLabel jlJenis_Kendaraan = new JLabel("Masukan kendaraan yang anda mau pesan ");
-    private JLabel jlHarga = new JLabel("Masukan berapa tiket yang anda beli ");
-    private JLabel jlDiskon = new JLabel("Masukan berapa tiket yang anda beli ");
-    private JLabel jlTujuan= new JLabel("Masukan berapa tiket yang anda beli ");
-    private JTextField jtfNama = new JTextField(50);
-    private JTextField jtfJenis_Kendaraan = new JTextField(50);
-    private JTextField jtfHarga = new JTextField(50);
-    private JTextField jtfDiskon = new JTextField(50);
-    private JTextField jtfTujuan = new JTextField(50);
-    private final JButton jbPesan = new JButton("Pesan");
+public class MesinTiketFrame {
+    double harga, total, diskon, bayar, kembalian;
+    int pilih, jumlah;
     
-    private JLabel jlStatusPesan = new JLabel("");
-    
-    private String nama;
-    private String jenis_kendaraan;
-    private String harga;
-    private String diskon;
-    private String tujuan;
-
-    menu menu;
-
-    public MesinTiketFrame() {
-        super("Mesin Tiket");
-        initView();
-        doMesinTiket();
-
-    private void initView() {
-        JPanel base = new JPanel(new GridBagLayout());
-
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.WEST;
-
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        base.add(jlNama, constraints);
-
-        constraints.gridx = 1;
-        base.add(jtfNama, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        base.add(jlJenis_Kendaraan, constraints);
-
-        constraints.gridx = 1;
-        base.add(jlJenis_Kendaraan, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 3;
-        base.add(jlStatusPesan, constraints);
-
-        constraints.gridx = 1;
-        constraints.gridy = 3;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
-        base.add(jbPesan, constraints);
-
-        base.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), " Machine Tiket"));
-
-        add(base);
-
-        pack();
-        setLocationRelativeTo(null);
+    double hitungtotal (int jml ){
+       jumlah = jml;
+       switch(pilih){
+            case 0:
+                System.exit(0);
+                break;
+            case 1:
+                harga = 585000;
+                total = total+(harga*jml);
+                break;
+            case 2:
+                harga = 332000;
+                total = total+(harga*jml);
+                break;
+            case 3:
+                harga = 190000;
+                total = total+(harga*jml);
+                break;
+            case 4:
+                harga = 1333999;
+                total = total+(harga*jml);
+                break;
+            default:
+                System.out.println("ERROR: input yang anda masukan salah !");
+        }
+        return total;
     }
 
+    void viewNama (){
+        System.out.print("Masukan Nama :");
+    }
     
-
+    void viewTujuan (){
+        System.out.println("Kota tujuan :");
+    }
     
+    void viewTotal (){
+        System.out.println("-----------------------------------");
+        System.out.println("            Pembayaran              ");
+        System.out.println("-----------------------------------");
+        System.out.println("Total : Rp." + total);
+    }
+    
+    double hitungKembalian(double byr){
+        bayar = byr;
+        kembalian = byr-total;
+        return kembalian;
+    }
+    
+    void viewKembalian (){
+        System.out.println("Kembalian : Rp." + kembalian);
+        System.out.println("------------------------------------");
+        System.out.println("            Terima Kasih            ");
+        System.out.println("------------------------------------");
+    }    
+    
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        MesinTiketFrame in = new MesinTiketFrame();
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println("                              MENU TIKET                               ");
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println("No Transportasi                                         Harga");
+        System.out.println("1. Pesawat                                              Rp 585.000");
+        System.out.println("2. KeReta Api                                           Rp 332.000");
+        System.out.println("3. Bus                                                  Rp 190.000");
+        System.out.println("4. Air Space                                            Rp 1.333.999");
+        System.out.println("_________________________________________________________________________");
+        System.out.println("                                DISKON                                  ");
+        System.out.println("- Setiap Pembelian Tiket di jam 08.00-09.00 disemua Transportasi : 1-2%");
+        System.out.println("- Nama Lengkap lebih dari 10 Karakter tanpa spasi : 1% ");
+        System.out.println("- Memiliki nama yang sama dengan salah satu Transportasi : 1%");
+        System.out.println("- Jarak antar Suarabaya dengan kota pilihan dibawah ini :");
+        System.out.println("    A. Jakarta : 800-900 X 4%");
+        System.out.println("    B. Amerika : 1500-200 X 6%");
+        System.out.println("    C. Bandung : 600-500 X 8%");
+        System.out.println("--------------------------------------------------------------------------");
+        System.out.println("Masukan nama : ");
+        System.out.println("Kota tujuan : ");
+        System.out.print("Menggunakan Transportasi :");
+        
+        
+        in.pilih = scan.nextInt();
+        if(in.pilih>=1 && in.pilih<=4){
+            System.out.print("Jumlah tiket yang Beli :");
+            in.jumlah = scan.nextInt();
+            
+        }else{
+        }
+        in.hitungtotal(in.jumlah);
+        
+        in.viewTotal();
+        System.out.print("Bayar : Rp.");
+        in.bayar = scan.nextDouble();
+        in.hitungKembalian(in.bayar);
+        in.viewKembalian();
+            
+    }
+}    
